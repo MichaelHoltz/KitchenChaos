@@ -282,12 +282,12 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 14094170084222252, guid: 1b5b19051789e7642bfbd33673f3bd32,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4610440008326478560}
+      insertIndex: 0
+      addedObject: {fileID: 1571453746368563447}
     - targetCorrespondingSourceObject: {fileID: 14094170084222252, guid: 1b5b19051789e7642bfbd33673f3bd32,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1571453746368563447}
+      addedObject: {fileID: 4610440008326478560}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6731985906575234416, guid: 1b5b19051789e7642bfbd33673f3bd32,
         type: 3}
@@ -318,8 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09493967c1de9a4cafd527403814674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kitchenObjectSO: {fileID: 11400000, guid: 2515b1f56cb0ae743b0e6f9ab4b3d30d, type: 2}
   _counterTopPoint: {fileID: 32347046023647579}
+  _kitchenObjectSO: {fileID: 11400000, guid: 2515b1f56cb0ae743b0e6f9ab4b3d30d, type: 2}
 --- !u!4 &6385875369869493305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 14094170084222252, guid: 1b5b19051789e7642bfbd33673f3bd32,
