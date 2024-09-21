@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd816bbe7a6a3848b0e371c07331a03, type: 3}
+  m_Name: Cabbage-CabbageSlices
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 564e9541de31a854b8cd916a1ebd93dc, type: 2}
+  output: {fileID: 11400000, guid: 9d6eebae5780a584f9e18447efd71fce, type: 2}
+  cuttingProgressMax: 5
