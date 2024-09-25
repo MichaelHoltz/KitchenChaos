@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class ClearCounter : BaseCounter, IKitchenObjectParent
+public class ClearCounter : BaseCounter
 {
     [SerializeField] private KitchenObjectSO _kitchenObjectSO;
 
@@ -28,8 +28,28 @@ public class ClearCounter : BaseCounter, IKitchenObjectParent
         {
             //There is a Kitchen Object on the counter
             if (player.HasKitchenObject())
-            { 
+            {
                 //player is carying something
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        GetKitchenObject().DestroySelf();
+                    }
+                }
+                else
+                {
+                    //Player is carrying something that is not a plate
+                    if(GetKitchenObject().TryGetPlate(out plateKitchenObject))
+                    {
+                        if (plateKitchenObject.TryAddIngredient(player.GetKitchenObject().GetKitchenObjectSO()))
+                        { 
+                            player.GetKitchenObject().DestroySelf();
+                        }
+
+                    }
+                }
             }
             else
             {

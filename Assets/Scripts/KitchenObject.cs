@@ -46,4 +46,15 @@ public class KitchenObject : MonoBehaviour
 
         return kitchenObject;
     }
+
+    public bool TryGetPlate( out PlateKitchenObject plateKitchenObject)
+    {
+        plateKitchenObject = null;
+        if (_kitchenObjectParent.GetKitchenObject() is PlateKitchenObject)
+        {
+            plateKitchenObject = _kitchenObjectParent.GetKitchenObject() as PlateKitchenObject;
+            return true;
+        }
+        return false;
+    }
 }
