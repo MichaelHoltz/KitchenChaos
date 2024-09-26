@@ -55,6 +55,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
             {
                 //player is not cayring anything
                 GetKitchenObject().SetKitchenObjectParent(player);
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs(0f));
             }
         }
         
