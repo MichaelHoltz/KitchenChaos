@@ -102,7 +102,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     {
         Vector2 inputVector = _gameInput.GetMovementVectorNormalized();
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
-        float playerRadius = .6f;
+        float playerRadius = .7f;
         float playerHeight = 2;
         float moveDistance = _moveSpeed * Time.deltaTime;
         bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
