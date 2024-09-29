@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private float _waitingToStartTimer = 1f;
     private float _countdownToStartTimer = 3f;
     private float _gamePlayingTimer = 0f;
-    private float _gamePlayingTimerMax = 10f;
+    private float _gamePlayingTimerMax = 30f;
 
     private void Awake()
     {
