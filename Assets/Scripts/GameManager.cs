@@ -6,7 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public event EventHandler OnStateChagned;
+    public event EventHandler OnStateChanged;
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameUnpaused;
     private enum State
     { 
         WaitingToStart,
@@ -19,12 +21,22 @@ public class GameManager : MonoBehaviour
     private float _waitingToStartTimer = 1f;
     private float _countdownToStartTimer = 3f;
     private float _gamePlayingTimer = 0f;
-    private float _gamePlayingTimerMax = 30f;
+    private float _gamePlayingTimerMax = 5f * 60f; // 5 minutes
+    private bool _isGamePaused = false;
 
     private void Awake()
     {
         Instance = this;
         _state = State.WaitingToStart;
+    }
+    private void Start()
+    {
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction; 
+    }
+
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
+    {
+        TogglePauseGame();
     }
 
     private void Update()
@@ -36,7 +48,7 @@ public class GameManager : MonoBehaviour
                 if (_waitingToStartTimer <= 0)
                 {
                     _state = State.CountdownToStart;
-                    OnStateChagned?.Invoke(this, EventArgs.Empty);
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case State.CountdownToStart:
@@ -46,7 +58,7 @@ public class GameManager : MonoBehaviour
                 {
                     _state = State.GamePlaying;
                     _gamePlayingTimer = _gamePlayingTimerMax;
-                    OnStateChagned?.Invoke(this, EventArgs.Empty);
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case State.GamePlaying:
@@ -55,14 +67,14 @@ public class GameManager : MonoBehaviour
                 if (_gamePlayingTimer <= 0)
                 {
                     _state = State.GameOver;
-                    OnStateChagned?.Invoke(this, EventArgs.Empty);
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case State.GameOver:
                 // Game over
                 break;
         }
-        Debug.Log(_state);
+        //Debug.Log(_state);
     }
 
     public bool IsGamePlaying()
@@ -94,6 +106,21 @@ public class GameManager : MonoBehaviour
         else
         { 
             return 0; 
+        }
+    }
+
+    public void TogglePauseGame()
+    {
+        _isGamePaused = !_isGamePaused;
+        if(_isGamePaused)
+        {
+            Time.timeScale = 0f;
+            OnGamePaused?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            OnGameUnpaused?.Invoke(this, EventArgs.Empty);
+            Time.timeScale = 1f;
         }
     }
 }

@@ -9,7 +9,7 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _recipesDeliveredText;
     private void Start()
     {
-        GameManager.Instance.OnStateChagned += GameManager_OnStateChagned;
+        GameManager.Instance.OnStateChanged += GameManager_OnStateChagned;
         Hide();
 
     }
