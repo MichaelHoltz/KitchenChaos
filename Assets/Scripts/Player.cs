@@ -66,7 +66,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         HandleMovement();
         HandleInteractions();
