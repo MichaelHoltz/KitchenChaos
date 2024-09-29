@@ -15,9 +15,10 @@ public class DeliveryManager : MonoBehaviour
     [SerializeField] private RecipeListSO _recipeListSO;
     private List<RecipeSO> _waitingRecipeSOList = new List<RecipeSO>();
 
-    private float spawnRecipeTimer;
-    private float spawnRecipeTimerMax = 4f;
-    private int waitingRecipesMax = 4;
+    private float _spawnRecipeTimer;
+    private float _spawnRecipeTimerMax = 4f;
+    private int _waitingRecipesMax = 4;
+    private int _successfulRecipesAmount = 0;
 
     private void Awake()
     {
@@ -26,11 +27,11 @@ public class DeliveryManager : MonoBehaviour
 
     private void Update()
     {
-        spawnRecipeTimer -= Time.deltaTime;
-        if(spawnRecipeTimer <= 0f)
+        _spawnRecipeTimer -= Time.deltaTime;
+        if(_spawnRecipeTimer <= 0f)
         {
-            spawnRecipeTimer = spawnRecipeTimerMax;
-            if(_waitingRecipeSOList.Count < waitingRecipesMax)
+            _spawnRecipeTimer = _spawnRecipeTimerMax;
+            if(_waitingRecipeSOList.Count < _waitingRecipesMax)
             {
                 RecipeSO waitingRecipeSO = _recipeListSO.RecipeSOList[UnityEngine.Random.Range(0, _recipeListSO.RecipeSOList.Count)];
                 _waitingRecipeSOList.Add(waitingRecipeSO);
@@ -72,9 +73,11 @@ public class DeliveryManager : MonoBehaviour
                 if (plateContentsMatchesRecipe)
                 {
                     //Recipe found
+                    _successfulRecipesAmount++;
                     _waitingRecipeSOList.RemoveAt(i);
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                     OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+                    
                     return;
                 }
             }
@@ -89,5 +92,9 @@ public class DeliveryManager : MonoBehaviour
     public List<RecipeSO> GetWaitingRecipeSOList() 
     { 
         return _waitingRecipeSOList;
+    }
+    public int GetSuccessfulRecipesAmount()
+    {
+        return _successfulRecipesAmount;
     }
 }
