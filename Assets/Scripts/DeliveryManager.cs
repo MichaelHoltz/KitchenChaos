@@ -16,9 +16,12 @@ public class DeliveryManager : MonoBehaviour
     private List<RecipeSO> _waitingRecipeSOList = new List<RecipeSO>();
 
     private float _spawnRecipeTimer;
-    private float _spawnRecipeTimerMax = 4f;
+    private float _spawnRecipeTimerMax = 6f;
     private int _waitingRecipesMax = 4;
     private int _successfulRecipesAmount = 0;
+    public int _score = 0;
+    public int _successfulIngredientCount = 0;
+    public int _failedIngredientCount = 0; //Would like to coordinate with the Trash Can
 
     private void Awake()
     {
@@ -41,7 +44,8 @@ public class DeliveryManager : MonoBehaviour
     }
     public void DeliverRecipe(PlateKitchenObject plateKitchenObject)
     { 
-        for(int i = 0; i < _waitingRecipeSOList.Count; i++)
+        int successfulIngredientCount = 0;
+        for (int i = 0; i < _waitingRecipeSOList.Count; i++)
         {
             RecipeSO waitingRecipeSO = _waitingRecipeSOList[i];
             if(waitingRecipeSO.KitchenObjectSOList.Count == plateKitchenObject.GetKitchenObjectSOList().Count)
@@ -57,6 +61,7 @@ public class DeliveryManager : MonoBehaviour
                         //Cycling through all ingredients in the plate
                         if (plateKitchenObjectSO == recipeKitchenObjectSO)
                         {
+                            successfulIngredientCount = plateKitchenObject.GetKitchenObjectSOList().Count;
                             //Ingredient matchs
                             ingredientFound = true;
                             break;
@@ -73,6 +78,7 @@ public class DeliveryManager : MonoBehaviour
                 if (plateContentsMatchesRecipe)
                 {
                     //Recipe found
+                    _successfulIngredientCount += successfulIngredientCount;
                     _successfulRecipesAmount++;
                     _waitingRecipeSOList.RemoveAt(i);
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
@@ -97,4 +103,10 @@ public class DeliveryManager : MonoBehaviour
     {
         return _successfulRecipesAmount;
     }
+
+    public int GetScore()
+    {
+        return _successfulIngredientCount;
+    }
+
 }
