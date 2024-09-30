@@ -12,7 +12,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPauseAction;
-
+    public event EventHandler OnBindingRebind;
     public enum Binding
     { 
         Move_Up,
@@ -21,7 +21,10 @@ public class GameInput : MonoBehaviour
         Move_Right,
         Interact,
         InteractAlt,
-        Pause
+        Pause,
+        Gamepad_Interact,
+        Gamepad_InteractAlt,
+        Gamepad_Pause
     }
 
     private PlayerInputActions _playerInputActions;
@@ -79,6 +82,7 @@ public class GameInput : MonoBehaviour
     public string GetBindingText(Binding binding)
     { 
         switch (binding) {
+            default:
             case Binding.Move_Up:
                 return _playerInputActions.Player.Move.GetBindingDisplayString(1);
             case Binding.Move_Down:
@@ -94,8 +98,12 @@ public class GameInput : MonoBehaviour
                 return _playerInputActions.Player.InteractAlternate.GetBindingDisplayString(0);
             case Binding.Pause:
                 return _playerInputActions.Player.Pause.GetBindingDisplayString(0);
-            default:
-                return "UNKNOWN";
+            case Binding.Gamepad_Interact:
+                return _playerInputActions.Player.Interact.GetBindingDisplayString(1);
+            case Binding.Gamepad_InteractAlt:
+                return _playerInputActions.Player.InteractAlternate.GetBindingDisplayString(1);
+            case Binding.Gamepad_Pause:
+                return _playerInputActions.Player.Pause.GetBindingDisplayString(1);
         }
 
     }
@@ -138,6 +146,18 @@ public class GameInput : MonoBehaviour
                 inputAction = _playerInputActions.Player.Pause;
                 bindingIndex = 0;
                 break;
+            case Binding.Gamepad_Interact:
+                inputAction = _playerInputActions.Player.Interact;
+                bindingIndex = 1;
+                break;
+            case Binding.Gamepad_InteractAlt:
+                inputAction = _playerInputActions.Player.InteractAlternate;
+                bindingIndex = 1;
+                break;
+            case Binding.Gamepad_Pause:
+                inputAction = _playerInputActions.Player.Pause;
+                bindingIndex = 1;
+                break;
 
         }
 
@@ -149,7 +169,7 @@ public class GameInput : MonoBehaviour
             onActionRebound();
             PlayerPrefs.SetString(PLAYER_PREFS_BINDINGSS, _playerInputActions.SaveBindingOverridesAsJson());
             PlayerPrefs.Save();
-
+            OnBindingRebind?.Invoke(this, EventArgs.Empty);
         }).Start();
     }
 }
