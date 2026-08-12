@@ -1331,11 +1331,11 @@ RectTransform:
   - {fileID: 1534078749}
   - {fileID: 550603877}
   - {fileID: 427304329}
+  - {fileID: 950635001}
   - {fileID: 1016276683}
   - {fileID: 1232469184}
   - {fileID: 1489362755}
   - {fileID: 875628163}
-  - {fileID: 950635001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
